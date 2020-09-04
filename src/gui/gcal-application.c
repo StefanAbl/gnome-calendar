@@ -116,6 +116,8 @@ process_sources (GcalApplication *self)
       g_autofree gchar* color_str = NULL;
       const GdkRGBA *color;
       GcalCalendar *calendar;
+      GdkRGBA *color_text;
+      g_autofree gchar* color_text_str = NULL;
 
       calendar = GCAL_CALENDAR (l->data);
 
@@ -123,7 +125,22 @@ process_sources (GcalApplication *self)
       color_str = gdk_rgba_to_string (color);
       color_id = g_quark_from_string (color_str);
 
-      new_css_snippets[i] = g_strdup_printf (CSS_TEMPLATE, color_id, color_str);
+      color_text = gdk_rgba_copy (color);
+      color_text->alpha = 1.0;
+      /*selecting fo black and white*/
+      if ((color->red + color->green + color->blue ) > 1.5 ){
+        color_text->red = 0.0;
+        color_text->green = 0.0;
+        color_text->blue = 0.0;
+      }else{
+        color_text->red = 1.0;
+        color_text->green = 1.0;
+        color_text->blue = 1.0;
+      }
+
+      color_text_str = gdk_rgba_to_string (color_text);
+
+      new_css_snippets[i] = g_strdup_printf (CSS_TEMPLATE, color_id, color_str, color_text_str);
     }
 
   g_list_free (calendars);

@@ -23,8 +23,13 @@
 ".color-%1$d {"\
 "  background-color: %2$s"\
 "}"\
+".color-%1$d.horizontal {"\
+"  background-color: %2$s;"\
+"  color: %3$s;"\
+"}"\
 ".color-%1$d.horizontal.timed {"\
 "  background-color: transparent;"\
+"  color: @theme_fg_color;"\
 "}"\
 ".color-%1$d.horizontal.timed box.icon-box{"\
 "  background-color: %2$s;"\
